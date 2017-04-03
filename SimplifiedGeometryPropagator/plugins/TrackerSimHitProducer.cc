@@ -1,7 +1,8 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
-
+#include <TH2.h>
+#include <TFile.h>
 // framework
 #include "FWCore/Framework/interface/Event.h"
 #include "MagneticField/UniformEngine/src/UniformMagneticField.h"
@@ -34,6 +35,10 @@
 #include "Geometry/CommonDetUnit/interface/GeomDet.h"
 #include "CondFormats/External/interface/DetID.h"
 #include "FWCore/Framework/interface/ProducerBase.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+
 
 namespace edm
 {
@@ -57,6 +62,10 @@ namespace fastsim
     const float onSurfaceTolerance_;
 	const float pTmin_;
 	std::unique_ptr<edm::PSimHitContainer> simHitContainer_;
+      edm::Service<TFileService> FileService;
+      TH2F* simhitsRZfull;
+      TH2F* simhitsRZ;
+      TH2F* simhitsXY;
     };
 }
 
@@ -67,7 +76,18 @@ fastsim::TrackerSimHitProducer::TrackerSimHitProducer(const std::string & name,c
     , onSurfaceTolerance_(0.01)
     , pTmin_(0.1)
     , simHitContainer_(new edm::PSimHitContainer)
-{}
+{
+  edm::Service<TFileService> fs;
+  simhitsRZfull = fs->make<TH2F>("simhitsRZfull","",1280,-320,320,1040,-130,130);
+  simhitsRZfull->GetXaxis()->SetTitle("Z [cm]");
+  simhitsRZfull->GetYaxis()->SetTitle("R [cm]");
+  simhitsRZ = fs->make<TH2F>("simhitsRZ","",600,-60,60,600,-60,60);
+  simhitsRZ->GetXaxis()->SetTitle("Z [cm]");
+  simhitsRZ->GetYaxis()->SetTitle("R [cm]");
+  simhitsXY = fs->make<TH2F>("simhitsXY","",1500,-250,250,750,-130,130);
+  simhitsXY->GetXaxis()->SetTitle("X [cm]");
+  simhitsXY->GetYaxis()->SetTitle("Y [cm]");
+}
 
 void fastsim::TrackerSimHitProducer::registerProducts(edm::ProducerBase & producer) const
 {
@@ -251,6 +271,18 @@ std::pair<double, PSimHit*> fastsim::TrackerSimHitProducer::createHitOnDetector(
     double energyDeposit = 0.; // do something about the energy deposit
 
     GlobalPoint hitPos(detector.surface().toGlobal(localPosition));
+    double r = std::sqrt(hitPos.x()*hitPos.x()+hitPos.y()*hitPos.y());
+    if(hitPos.phi()<0){
+      simhitsRZfull->Fill(hitPos.z(),-r);
+      if( subdet == 1 || subdet == 2)
+	simhitsRZ->Fill(hitPos.z(),-r);
+    }
+    else{
+      simhitsRZfull->Fill(hitPos.z(),r);
+      if( subdet == 1 || subdet == 2)
+	simhitsRZ->Fill(hitPos.z(),r);
+    }
+    simhitsXY->Fill(hitPos.x(),hitPos.y());
 
     return std::pair<double, PSimHit*>((hitPos-refPos).mag(),
                                         new PSimHit(entry, exit, localMomentum.mag(), tof, energyDeposit, pdgId,

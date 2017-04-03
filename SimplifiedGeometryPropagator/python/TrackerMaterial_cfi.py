@@ -35,10 +35,10 @@ TrackerMaterialBlock = cms.PSet(
                 thickness = cms.untracked.vdouble(0.0024),
                 interactionModels = _trackerMaterialInteractionModels
             ),
-            ########### The Pixel Barrel layers 1-3 ###########
+            ########### The Pixel Barrel layers 1-4 ###########
             #PIXB1
             cms.PSet(
-                radius = cms.untracked.double(4.425),
+#                radius = cms.untracked.double(4.425),
                 limits = cms.untracked.vdouble(0.0, 28.391),
                 thickness = cms.untracked.vdouble(0.0217),
                 activeLayer = cms.untracked.string("BPix1"),
@@ -46,7 +46,7 @@ TrackerMaterialBlock = cms.PSet(
             ),
             #PIXB2
             cms.PSet(
-                radius = cms.untracked.double(7.312),
+#                radius = cms.untracked.double(7.312),
                 limits = cms.untracked.vdouble(0.0, 28.391),
                 thickness = cms.untracked.vdouble(0.0217),
                 activeLayer = cms.untracked.string("BPix2"),
@@ -54,13 +54,22 @@ TrackerMaterialBlock = cms.PSet(
             ),
             #PIXB3
             cms.PSet(
-                radius = cms.untracked.double(10.177),
+#                radius = cms.untracked.double(10.177),
                 limits = cms.untracked.vdouble(0.0, 28.391),
                 thickness = cms.untracked.vdouble(0.0217),
                 activeLayer = cms.untracked.string("BPix3"),
                 interactionModels = _trackerMaterialInteractionModels
             ),
-            ########### Pixel Outside walls and cables (barrel) ###########
+            #PIXB4                                                                                                                      
+            cms.PSet(
+#               radius = cms.untracked.double(16),
+                limits = cms.untracked.vdouble(0.0, 28.391),
+                thickness = cms.untracked.vdouble(0.0217),
+                activeLayer = cms.untracked.string("BPix4"),
+                interactionModels = _trackerMaterialInteractionModels
+            ),
+
+           ########### Pixel Outside walls and cables (barrel) ###########
             #PIXBOut5
             cms.PSet(
                 radius = cms.untracked.double(17.6),
@@ -185,7 +194,7 @@ TrackerMaterialBlock = cms.PSet(
                 thickness = cms.untracked.vdouble(0.012),
                 interactionModels = _trackerMaterialInteractionModels
             ),
-            ########### Pixel Disks 1-2 ###########
+            ########### Pixel Disks 1-3 ###########
             #PIXD1
             cms.PSet(
                 limits = cms.untracked.vdouble(4.825, 16.598),
@@ -200,6 +209,14 @@ TrackerMaterialBlock = cms.PSet(
                 activeLayer = cms.untracked.string("FPix2"),
                 interactionModels = _trackerMaterialInteractionModels
             ),
+            #PIXD3                                                                                                                   
+            cms.PSet(
+                limits = cms.untracked.vdouble(4.823, 16.598),
+                thickness = cms.untracked.vdouble(0.058),
+                activeLayer = cms.untracked.string("FPix3"),
+                interactionModels = _trackerMaterialInteractionModels
+            ),
+
             ########### Pixel Endcap outside cables ###########
             #PIXBOut6
             cms.PSet(
