@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+#from Configuration.Eras.Modifier_trackingPhase1_cff import trackingPhase1
 
 # import the full tracking equivalent of this file
 import RecoTracker.IterativeTracking.InitialStep_cff as _standard
@@ -6,6 +7,7 @@ from FastSimulation.Tracking.SeedingMigration import _hitSetProducerToFactoryPSe
 
 # tracking regions
 initialStepTrackingRegions = _standard.initialStepTrackingRegions.clone()
+#trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.5))
 
 # trajectory seeds
 import FastSimulation.Tracking.TrajectorySeedProducer_cfi
