@@ -1,5 +1,6 @@
 import FWCore.ParameterSet.Config as cms
-#from RecoPixelVertexing.PixelTriplets.caHitTripletEDProducer_cfi import caHitTripletEDProducer as _caHitTripletEDProducer
+from RecoPixelVertexing.PixelTriplets.caHitTripletEDProducer_cfi import caHitTripletEDProducer as _caHitTripletEDProducer
+from Configuration.Eras.Modifier_trackingPhase1_cff import trackingPhase1
 # import the full tracking equivalent of this file
 import RecoTracker.IterativeTracking.DetachedTripletStep_cff as _standard
 from FastSimulation.Tracking.SeedingMigration import _hitSetProducerToFactoryPSet
@@ -20,18 +21,18 @@ detachedTripletStepSeeds = FastSimulation.Tracking.TrajectorySeedProducer_cfi.tr
 )
 detachedTripletStepSeeds.seedFinderSelector.pixelTripletGeneratorFactory = _hitSetProducerToFactoryPSet(_standard.detachedTripletStepHitTriplets)
 
-#_caHitTripletEDProducer.clone(
- #       doublets = "detachedTripletStepHitDoublets",
-  #      extraHitRPhitolerance = detachedTripletStepHitTriplets.extraHitRPhitolerance,
-   #     maxChi2 = dict(
-    #       pt1    = 0.8, pt2    = 2,
-     #      value1 = 300 , value2 = 10,
-      #     ),
-       # useBendingCorrection = True,
-        #CAThetaCut = 0.001,
-        #CAPhiCut = 0,
-        #CAHardPtCut = 0.2,
-#)) 
+trackingPhase1.toReplaceWith(detachedTripletStepHitTriplets,_caHitTripletEDProducer.clone(
+        doublets = "detachedTripletStepHitDoublets",
+        extraHitRPhitolerance = detachedTripletStepHitTriplets.extraHitRPhitolerance,
+        maxChi2 = dict(
+            pt1    = 0.8, pt2    = 2,
+            value1 = 300 , value2 = 10,
+            ),
+        useBendingCorrection = True,
+        CAThetaCut = 0.001,
+        APhiCut = 0,
+        CAHardPtCut = 0.2,
+))
 
 # track candidates
 import FastSimulation.Tracking.TrackCandidateProducer_cfi

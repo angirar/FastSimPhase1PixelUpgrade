@@ -6,19 +6,19 @@
 import FWCore.ParameterSet.Config as cms
 from TrackingTools.MaterialEffects.MaterialPropagatorParabolicMf_cff import *
 from FastSimulation.Tracking.InitialStep_cff import *
-from FastSimulation.Tracking.DetachedQuadStep_cff import *
-from FastSimulation.Tracking.HighPtTripletStep_cff import *
-from FastSimulation.Tracking.LowPtQuadStep_cff import *
-from FastSimulation.Tracking.DetachedTripletStep_cff import *
-from FastSimulation.Tracking.LowPtTripletStep_cff import *
-#from FastSimulation.Tracking.PixelPairStep_cff import *
-from FastSimulation.Tracking.MixedTripletStep_cff import *
-from FastSimulation.Tracking.PixelLessStep_cff import *
-from FastSimulation.Tracking.TobTecStep_cff import *
+#from FastSimulation.Tracking.DetachedQuadStep_cff import *
+#from FastSimulation.Tracking.HighPtTripletStep_cff import *
+#from FastSimulation.Tracking.LowPtQuadStep_cff import *
+#from FastSimulation.Tracking.DetachedTripletStep_cff import *
+#from FastSimulation.Tracking.LowPtTripletStep_cff import *
+##from FastSimulation.Tracking.PixelPairStep_cff import *
+#from FastSimulation.Tracking.MixedTripletStep_cff import *
+#from FastSimulation.Tracking.PixelLessStep_cff import *
+#from FastSimulation.Tracking.TobTecStep_cff import *
 # the following loads a dummy empty track collection
 # such that FastSim can import earlyGeneralTracks_cfi from full tracking
 # todo: actual implementation of JetCore iteration  
-from FastSimulation.Tracking.JetCoreRegionalStep_cff import *
+#from FastSimulation.Tracking.JetCoreRegionalStep_cff import *
 
 import RecoTracker.FinalTrackSelectors.earlyGeneralTracks_cfi
 # todo, import MuonSeededStep_cff, preDuplicateMergingGeneralTracks_cfi, MergeTrackCollections_cff, ConversionStep_cff
@@ -27,16 +27,16 @@ generalTracksBeforeMixing = RecoTracker.FinalTrackSelectors.earlyGeneralTracks_c
 
 iterTracking = cms.Sequence(
     InitialStep
-    +LowPtQuadStep
-    +HighPtTripletStep
-    +LowPtTripletStep
-    +DetachedQuadStep   
-    +DetachedTripletStep
+ #   +LowPtQuadStep
+  #  +HighPtTripletStep
+    #+LowPtTripletStep
+   # +DetachedQuadStep   
+    #+DetachedTripletStep
     #+PixelPairStep
-    +MixedTripletStep
-    +PixelLessStep
-    +TobTecStep
-    +JetCoreRegionalStep
+    #+MixedTripletStep
+    #+PixelLessStep
+    #+TobTecStep
+ #   +JetCoreRegionalStep
     +generalTracksBeforeMixing
 )
 

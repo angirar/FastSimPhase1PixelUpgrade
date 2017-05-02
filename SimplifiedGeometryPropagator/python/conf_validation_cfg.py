@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("DEMO",eras.Run2_2017,eras.fastSim)
+process = cms.Process("DEMO",eras.Run2_2016,eras.fastSim)
 
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(100)
@@ -140,23 +140,23 @@ process.simHitTPAssocProducer.simHitSrc = cms.VInputTag(cms.InputTag("fastSimPro
 process.simMuonDTDigis.InputCollection = cms.string('fastSimProducerMuonDTHits')
 process.simMuonRPCDigis.InputCollection = cms.string('fastSimProducerMuonRPCHits')
 
-process.mixedTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.mixedTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
 process.trackingParticleNumberOfLayersProducer.simHits = cms.VInputTag("fastSimProducer:TrackerHits")
 
 process.mixSimTracks.input = cms.VInputTag(cms.InputTag("fastSimProducer"))
 process.mixSimVertices.input = cms.VInputTag(cms.InputTag("fastSimProducer"))
-process.detachedTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.detachedQuadStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.detachedTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.detachedQuadStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
 process.fastElectronCkfTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
 
 # Not sure if I need all those
 process.initialStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.lowPtTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.pixelLessStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.lowPtQuadStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.highPtTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.lowPtTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.pixelLessStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.lowPtQuadStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.highPtTripletStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
 #process.pixelPairStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
-process.tobTecStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
+#process.tobTecStepTrackCandidates.simTracks = cms.InputTag("fastSimProducer")
 process.AllHcalDigisValidation.simHits = cms.untracked.InputTag("fastSimProducer","HcalHits")
 process.AllSimHitsValidation.ModuleLabel = cms.untracked.string('fastSimProducer')
 process.mixCollectionValidation.mixObjects.mixSH.input = cms.VInputTag(cms.InputTag("MuonSimHits","MuonCSCHits"), cms.InputTag("MuonSimHits","MuonDTHits"), cms.InputTag("MuonSimHits","MuonRPCHits"), cms.InputTag("fastSimProducer","TrackerHits"))

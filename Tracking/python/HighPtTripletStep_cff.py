@@ -1,5 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from RecoPixelVertexing.PixelTriplets.caHitTripletEDProducer_cfi import caHitTripletEDProducer as _caHitTripletEDProducer
+from Configuration.Eras.Modifier_trackingPhase1_cff import trackingPhase1
 # import the full tracking equivalent of this file                                                                                                                           
 import RecoTracker.IterativeTracking.HighPtTripletStep_cff as _standard
 from FastSimulation.Tracking.SeedingMigration import _hitSetProducerToFactoryPSet
@@ -28,7 +29,8 @@ highPtTripletStepHitTriplets = _pixelTripletHLTEDProducer.clone(
     SeedComparitorPSet = RecoPixelVertexing.PixelLowPtUtilities.LowPtClusterShapeSeedComparitor_cfi.LowPtClusterShapeSeedComparitor.clone()
 )
 
-highPtTripletStepSeeds.seedFinderSelector.pixelTripletGeneratorFactory = _hitSetProducerToFactoryPSet( _caHitTripletEDProducer.clone(
+highPtTripletStepSeeds.seedFinderSelector.pixelTripletGeneratorFactory = _hitSetProducerToFactoryPSet(_standard.highPtTripletStepHitTriplets)
+trackingPhase1.toReplaceWith(highPtTripletStepHitTriplets,_caHitTripletEDProducer.clone(
         doublets = "highPtTripletStepHitDoublets",
         extraHitRPhitolerance = highPtTripletStepHitTriplets.extraHitRPhitolerance,
         SeedComparitorPSet = highPtTripletStepHitTriplets.SeedComparitorPSet,
