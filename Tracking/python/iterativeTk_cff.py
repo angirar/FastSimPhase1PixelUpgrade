@@ -18,7 +18,7 @@ from FastSimulation.Tracking.InitialStep_cff import *
 # the following loads a dummy empty track collection
 # such that FastSim can import earlyGeneralTracks_cfi from full tracking
 # todo: actual implementation of JetCore iteration  
-#from FastSimulation.Tracking.JetCoreRegionalStep_cff import *
+from FastSimulation.Tracking.JetCoreRegionalStep_cff import *
 
 import RecoTracker.FinalTrackSelectors.earlyGeneralTracks_cfi
 # todo, import MuonSeededStep_cff, preDuplicateMergingGeneralTracks_cfi, MergeTrackCollections_cff, ConversionStep_cff
@@ -36,7 +36,7 @@ iterTracking = cms.Sequence(
     #+MixedTripletStep
     #+PixelLessStep
     #+TobTecStep
- #   +JetCoreRegionalStep
+    +JetCoreRegionalStep
     +generalTracksBeforeMixing
 )
 
